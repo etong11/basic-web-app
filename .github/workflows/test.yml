@@ -1,27 +1,16 @@
 name: test
 
 on:
-
-push:
-
-branches:
-
-- main
+    push:
+        branches:
+            - main
 
 jobs:
-
-test:
-
-    runs-on: ubuntu-latest
-
-    name: ESLint and Jest tests
-
-    steps:
-
-    - uses: actions/checkout@v3
-
-    - uses: bahmutov/npm-install@v1
-
-    - run: npm run lint
-
-    - run: npm run test
+    test:
+        runs-on: ubuntu-latest
+        name: ESLint and Jest tests
+        steps:
+            - uses: actions/checkout@v3
+            - uses: bahmutov/npm-install@v1
+            - run: npm run lint
+            - run: npm run test
