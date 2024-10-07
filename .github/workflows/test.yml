@@ -10,11 +10,11 @@ branches:
 
 jobs:
 
-tests:
+test:
 
     runs-on: ubuntu-latest
 
-    name: __BLANK 3__
+    name: ESLint and Jest tests
 
     steps:
 
