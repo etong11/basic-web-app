@@ -11,6 +11,11 @@ export default function QueryProcessor(query: string): string {
       "eltong"
     );
   }
+  else if (query.toLowerCase().includes("name")) {
+    return (
+      "Emma"
+    );
+  }
 
   return "";
 }
