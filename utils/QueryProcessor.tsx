@@ -16,20 +16,17 @@ export default function QueryProcessor(query: string): string {
       "Emma"
     );
   }
-  // "Which of the following numbers is the largest: 1, 2, 3, 4"
-  else if (query.toLowerCase().includes("Which of the following numbers is the largest:")) {
-    let numbers = query.split(":")[1].split(",");
-    // Trim space at the beginning
-    numbers = numbers.map((num) => num.trim());
-    let max = Number.MIN_SAFE_INTEGER;
-    for (let i = 0; i < numbers.length; i++) {
-      const num = parseInt(numbers[i]);
-      if (num > max) {
-        max = num;
-      }
+  // "Which of the following numbers is the largest: 1, 2, 3?"
+  // Check if matches "Which of the following numbers is the largest: 1, 2, 3?" format but with different numbers using regex
+  if (query.match(/Which of the following numbers is the largest: (\d+), (\d+), (\d+)\?/)) {
+    const numbersMatch = query.match(/Which of the following numbers is the largest: (\d+), (\d+), (\d+)\?/);
+    if (numbersMatch) {
+      const numbers = numbersMatch.slice(1).map(Number);
+      const largest = Math.max(...numbers);
+      return largest.toString();
     }
-    return max.toString();
   }
+  
   // What is 33 plus 80?
   else if (query.toLowerCase().includes("plus")) {
     let numbers = query.split("plus");
