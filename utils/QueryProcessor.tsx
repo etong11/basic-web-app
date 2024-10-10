@@ -67,6 +67,22 @@ export default function QueryProcessor(query: string): string {
       return result.length > 0 ? result.join(", ") : "None";
     }
   }
+  // Which of the following numbers are primes: 37, 4, 58, 73, 21?	
+  if (query.match(/Which of the following numbers are primes: ((\d+, )*\d+)\?/)) {
+    const numbersMatch = query.match(/Which of the following numbers are primes: ((\d+, )*\d+)\?/);
+    if (numbersMatch) {
+      const numbers = numbersMatch[1].split(", ").map(Number);
+      const isPrime = (num: number) => {
+        if (num < 2) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+          if (num % i === 0) return false;
+        }
+        return true;
+      };
+      const result = numbers.filter(isPrime);
+      return result.length > 0 ? result.join(", ") : "None";
+    }
+  }
 
   return "";
 }
