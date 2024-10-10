@@ -83,6 +83,15 @@ export default function QueryProcessor(query: string): string {
       return result.length > 0 ? result.join(", ") : "None";
     }
   }
+  // What is 46 to the power of 9?	
+  if (query.match(/What is (\d+) to the power of (\d+)\?/)) {
+    const powerMatch = query.match(/What is (\d+) to the power of (\d+)\?/);
+    if (powerMatch) {
+      const num1 = parseInt(powerMatch[1]);
+      const num2 = parseInt(powerMatch[2]);
+      return Math.pow(num1, num2).toString();
+    }
+  }
 
   return "";
 }
