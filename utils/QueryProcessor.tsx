@@ -27,6 +27,29 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  // if query contains plus, minus, or multiplied by, then do the math. The query can contain any amount of numbers
+  if (query.toLowerCase().includes("plus") || query.toLowerCase().includes("minus") || query.toLowerCase().includes("multiplied by")) {
+    const mathMatch = query.match(/What is (\d+ (plus|minus|multiplied by) \d+)+\?/);
+    if (mathMatch) {
+      const numbersMatch = query.match(/\d+/g);
+      const numbers = numbersMatch ? numbersMatch.map(Number) : [];
+      const operations = query.match(/(plus|minus|multiplied by)/g);
+      let result = numbers[0];
+      if (operations) {
+        for (let i = 1; i < numbers.length; i++) {
+          if (operations[i - 1] === "plus") {
+            result += numbers[i];
+          } else if (operations[i - 1] === "minus") {
+            result -= numbers[i];
+          } else if (operations[i - 1] === "multiplied by") {
+            result *= numbers[i];
+          }
+        }
+      }
+      return result.toString();
+    }
+  }
+
   // What is 33 plus 80?
   // Modify to also match on "What is 84 plus 6 plus 63?" and any number of pluses
   else if (query.toLowerCase().includes("plus")) {
