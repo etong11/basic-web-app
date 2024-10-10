@@ -35,6 +35,16 @@ export default function QueryProcessor(query: string): string {
     return (num1 + num2).toString();
   }
 
+  // What is 52 multiplied by 1?	
+  if(query.toLowerCase().includes("multiplied by")) {
+    const multMatch = query.match(/What is (\d+) multiplied by (\d+)\?/);
+    if (multMatch) {
+      const num1 = parseInt(multMatch[1]);
+      const num2 = parseInt(multMatch[2]);
+      return (num1 * num2).toString();
+    }
+  }
+
   // Which of the following numbers is both a square and a cube: 786, 1444, 4096, 4796, 1000, 4474, 472?
   if (query.match(/Which of the following numbers is both a square and a cube: ((\d+, )*\d+)\?/)) {
     const numbersMatch = query.match(/Which of the following numbers is both a square and a cube: ((\d+, )*\d+)\?/);
