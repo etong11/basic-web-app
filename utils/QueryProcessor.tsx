@@ -26,13 +26,28 @@ export default function QueryProcessor(query: string): string {
       return largest.toString();
     }
   }
-  
+
   // What is 33 plus 80?
   else if (query.toLowerCase().includes("plus")) {
     let numbers = query.split("plus");
     const num1 = parseInt(numbers[0].split("is")[1].trim());
     const num2 = parseInt(numbers[1].trim());
     return (num1 + num2).toString();
+  }
+
+  // Which of the following numbers is both a square and a cube: 786, 1444, 4096, 4796, 1000, 4474, 472?
+  if (query.match(/Which of the following numbers is both a square and a cube: ((\d+, )*\d+)\?/)) {
+    const numbersMatch = query.match(/Which of the following numbers is both a square and a cube: ((\d+, )*\d+)\?/);
+    if (numbersMatch) {
+      const numbers = numbersMatch[1].split(", ").map(Number);
+      const isSquareAndCube = (num: number) => {
+        const sqrt = Math.sqrt(num);
+        const cbrt = Math.cbrt(num);
+        return Number.isInteger(sqrt) && Number.isInteger(cbrt);
+      };
+      const result = numbers.filter(isSquareAndCube);
+      return result.length > 0 ? result.join(", ") : "None";
+    }
   }
 
   return "";
