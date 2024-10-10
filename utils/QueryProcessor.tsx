@@ -28,11 +28,14 @@ export default function QueryProcessor(query: string): string {
   }
 
   // What is 33 plus 80?
+  // Modify to also match on "What is 84 plus 6 plus 63?" and any number of pluses
   else if (query.toLowerCase().includes("plus")) {
-    let numbers = query.split("plus");
-    const num1 = parseInt(numbers[0].split("is")[1].trim());
-    const num2 = parseInt(numbers[1].trim());
-    return (num1 + num2).toString();
+    const plusMatch = query.match(/What is ((\d+)( plus (\d+))+)\?/);
+    if (plusMatch) {
+      const numbers = plusMatch[1].split(" plus ").map(Number);
+      const sum = numbers.reduce((acc, num) => acc + num, 0);
+      return sum.toString();
+    }
   }
 
   // 
