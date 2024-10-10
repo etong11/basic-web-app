@@ -35,6 +35,14 @@ export default function QueryProcessor(query: string): string {
     return (num1 + num2).toString();
   }
 
+  // 
+  else if (query.toLowerCase().includes("minus")) {
+    let numbers = query.split("minus");
+    const num1 = parseInt(numbers[0].split("is")[1].trim());
+    const num2 = parseInt(numbers[1].trim());
+    return (num1 - num2).toString();
+  }
+
   // What is 52 multiplied by 1?	
   if(query.toLowerCase().includes("multiplied by")) {
     const multMatch = query.match(/What is (\d+) multiplied by (\d+)\?/);
